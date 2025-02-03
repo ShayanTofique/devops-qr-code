@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set Up AWS CLI
         uses: aws-actions/configure-aws-credentials@v2
@@ -21,13 +21,19 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
+      - name: Verify Build Directory Exists
+        run: |
+          if [ ! -d "./front-end-nextjs/build" ]; then
+            echo "❌ Error: Build directory does not exist!"
+            exit 1
+          fi
+
       - name: Deploy Website to S3
         run: |
-          aws s3 sync ./front-end-nextjs s3://${{ secrets.S3_BUCKET_NAME }} --delete
+          aws s3 sync ./front-end-nextjs/build s3://${{ secrets.S3_BUCKET_NAME }} --delete
 
       - name: Verify Deployment
-        run: |
-          aws s3 ls s3://${{ secrets.S3_BUCKET_NAME }}
+        run: aws s3 ls s3://${{ secrets.S3_BUCKET_NAME }}
 
   docker-compose:
     name: Run Docker Compose
@@ -36,12 +42,10 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Set Up Docker
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker.io docker-compose
+      - name: Set Up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
       - name: Run Docker Compose
         run: |
