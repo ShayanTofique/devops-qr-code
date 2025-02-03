@@ -23,7 +23,7 @@ jobs:
 
       - name: Deploy Website to S3
         run: |
-          aws s3 sync ./front-end-nextjs/build s3://${{ secrets.S3_BUCKET_NAME }} --delete
+          aws s3 sync ./front-end-nextjs s3://${{ secrets.S3_BUCKET_NAME }} --delete
 
       - name: Verify Deployment
         run: |
