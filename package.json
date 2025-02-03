@@ -1,0 +1,20 @@
+{
+  "name": "devops-qr-code",
+  "version": "1.0.0",
+  "description": "This is the sample application for the DevOps Capstone Project. It generates QR Codes for the provided URL, the front-end is in NextJS and the API is written in Python using FastAPI.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShayanTofique/devops-qr-code.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShayanTofique/devops-qr-code/issues"
+  },
+  "homepage": "https://github.com/ShayanTofique/devops-qr-code#readme"
+}
